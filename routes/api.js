@@ -16,7 +16,7 @@ var pasteSchema = mongoose.Schema({
     'filename': String,
     'code': String,
     'exp': Number,
-    'createdDate': { type: Date, default: Date.now },
+    'createdTime': { type: Date, default: Date.now },
 }, { versionKey: false });
 var Paste = mongoose.model('paste', pasteSchema);
 
