@@ -42,15 +42,16 @@ router.get('/paste', function (req, res, next) {
 // POST
 router.post('/paste', (req, res, next) => {
     var payload = req.body;
-    if (typeof payload['exp'] != 'number') {
-        res.send({ status: 500, msg: 'exp is not a number' });
+    var expMapping = { '1 hour': 1, '3 hours': 3, '24 hours': 24};
+    if (!payload['exp'] in expMapping) {
+        res.send({ status: 500, msg: 'Invalided Expiration' });
     } else {
         var paste = new Paste({
             poster: payload['poster'],
             lang: payload['lang'],
             filename: !payload['filename'] ? payload['filename'] : '',
             code: payload['code'],
-            exp: Number(payload['exp']),
+            exp: Number(expMapping[payload['exp']]),
         });
         paste.save(function (err, result) {
             if (err) {
