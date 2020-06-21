@@ -8,7 +8,7 @@ mongoose.connect(settings.mongodbUrl);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error:'));
 db.once('open', function () {
-    console.log(`√ Connected to ${settings.mongodbUrl}`)
+    console.log(`[DB] Connection established (${settings.mongodbUrl})`)
 });
 var pasteSchema = mongoose.Schema({
     'poster': String,
@@ -31,10 +31,10 @@ router.get('/paste', function (req, res, next) {
         };
         if (paste.length == 0) {
             res.send({ status: 404 });
-            return console.error('404 Not Found');
+            return console.error('Paste Not Found');
         };
         var responseBody = { status: 200, datas: paste[0] };
-        console.log(responseBody);
+        // console.log(responseBody);
         res.send(responseBody);
     });
 });
@@ -58,7 +58,7 @@ router.post('/paste', (req, res, next) => {
                 res.send({ status: 500 });
                 return console.error(err);
             };
-            console.log(result);
+            // console.log(result);
             res.send({ status: 200, datas: result });
         });
     };
