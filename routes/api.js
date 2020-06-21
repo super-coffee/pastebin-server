@@ -49,7 +49,7 @@ router.post('/paste', (req, res, next) => {
         var paste = new Paste({
             poster: payload['poster'],
             lang: payload['lang'],
-            filename: !payload['filename'] ? payload['filename'] : '',
+            filename: payload['filename'] ? payload['filename'] : '',
             code: payload['code'],
             exp: Number(expMapping[payload['exp']]),
         });
